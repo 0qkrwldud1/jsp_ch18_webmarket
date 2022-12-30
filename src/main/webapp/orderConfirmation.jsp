@@ -7,7 +7,7 @@
 	request.setCharacterEncoding("UTF-8");
 
 	String cartId = session.getId();
-
+	 // 해당 브라우저마다 하나의 세션.
 	String shipping_cartId = "";
 	String shipping_name = "";
 	String shipping_shippingDate = "";

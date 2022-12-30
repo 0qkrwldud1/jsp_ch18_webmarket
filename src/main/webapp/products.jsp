@@ -14,12 +14,13 @@
 	</div>
 	<div class="container">
 		<div class="row" align="center">
-			<%@ include file="dbconn.jsp" %>
+			<%@ include file="dbconn.jsp" %> <!-- 디비연결 -->
 			<%
-				PreparedStatement pstmt = null;
+				PreparedStatement pstmt = null; 
+				/* 동적 쿼리 , 해당 sql문장을 전달할 때 이용할 객체*/
 				ResultSet rs = null;
-				
-				String sql = "select * from product";
+				/* 디비에서 조회한 정보들을 담을 객체 */
+				String sql = "select * from product"; // 쿼리문
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				while (rs.next()) {
