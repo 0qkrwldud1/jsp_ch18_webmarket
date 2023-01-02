@@ -20,19 +20,21 @@ public class BoardDAO {
 			instance = new BoardDAO();
 		return instance;
 	}	
-	//board 테이블의 레코드 개수
+	//board 테이블의 레코드 개수, 매개변수 -> 아이템, 텍스트
 	public int getListCount(String items, String text) {
+		// 디비에 접근
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		// 기본값
 		int x = 0;
-
+		// sql문장을 쓰기위한 변수.
 		String sql;
-		
+		//검색 조건이 없다면 -> 전체 게시글 리스트를 출력
 		if (items == null && text == null)
 			sql = "select  count(*) from board";
 		else
+		// 검색조건이 있다면 아이템, 텍스트 -> 검색조건을 포함한 게시글 리스트만 출력
 			sql = "select   count(*) from board where " + items + " like '%" + text + "%'";
 		
 		try {
@@ -59,23 +61,31 @@ public class BoardDAO {
 		}		
 		return x;
 	}
-	//board  테이블의 레코드 가져오기 -> 페이징처리
+	//board  테이블의 레코드 가져오기 -> 페이징처리하는 부분.
 	public ArrayList<BoardDTO> getBoardList(int page, int limit, String items, String text) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
+		// page-> 현재 페이지
+		// limit -> 초기에 설정한 현재 페이지에 불러올 갯수.
+		// db에서 불러올 게시글의 총 개수.
 		int total_record = getListCount(items, text );
+		// start = (1-1)*5 = 0
 		int start = (page - 1) * limit;
+		// index = 1
 		int index = start + 1;
 
 		String sql;
 
 		if (items == null && text == null)
 			sql = "select * from board ORDER BY num DESC";
+			// 보드 테이블을 num 기준으로 내림차순으로 정렬.
 		else
 			sql = "SELECT  * FROM board where " + items + " like '%" + text + "%' ORDER BY num DESC ";
-
+			// 보드 테이블을 조건내에서 text에 검색한 글자를 가진 text가 있는 칼럼을 내림차순으로 정렬.
+		
+		//arraylist를 만듦.
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 
 		try {
@@ -95,7 +105,9 @@ public class BoardDAO {
 				board.setIp(rs.getString("ip"));
 				list.add(board);
 
+				// 인덱스 = 1, 5보다 작고 동시에 인덱스가 게시글의 총 개수보다 작거나 같다면,
 				if (index < (start + limit) && index <= total_record)
+					// 인덱스가 1씩 증가;
 					index++;
 				else
 					break;
@@ -334,5 +346,48 @@ public class BoardDAO {
 				throw new RuntimeException(ex.getMessage());
 			}		
 		}
-	}	
+	}
+	
+	//이미지를 넣는 메서드
+	public void insertImages(BoardDTO board, FimageDTO fileDTO) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBConnection.getConnection();		
+			ArrayList<FimageDTO> fileList = new ArrayList<FimageDTO>();
+			fileList = board.getFileList();
+			
+			for(int i=0; i<fileList.size(); i++) {
+				
+			
+			String sql = "insert into board_images values(?, ?, ?, ?)";
+			//fnum, fileName, regDate, num
+			//getNum->해당게시글의 번호를 가져오는것.
+			// 해당멀티이미지를 반복문으로 여러개를 입력하는 로직필요.
+			//getFnum는 자동으로 숫자증가
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, fileDTO.getFnum());
+			//반복문으로 해당 목록에 들어가있는 파일이름을 하나씩 꺼내옴
+			pstmt.setString(2, fileList.get(i).getFileName());
+			
+			pstmt.setString(3, fileDTO.getRedDate());
+			pstmt.setInt(4, board.getNum());
+
+			pstmt.executeUpdate();
+		} }catch (Exception ex) {
+			System.out.println("insertBoard() 에러 : " + ex);
+		} finally {
+			try {									
+				if (pstmt != null) 
+					pstmt.close();				
+				if (conn != null) 
+					conn.close();
+			} catch (Exception ex) {
+				throw new RuntimeException(ex.getMessage());
+			}		
+		}		
+	}
+	
 }

@@ -50,15 +50,29 @@
 				// rs resultset이라는 형식의 객체에 테이블 형식으로 값을 저장
 				while (rs.next()) {
 			%>
-		<div class="col-md-4"> <!-- c:/upload/ 원래 이미지 경로 -->
+		<div class="col-md-5"> <!-- c:/upload/ 원래 이미지 경로 -->
 				<img src="./resources/images/<%=rs.getString("p_fileName")%>" style="width: 100%">
-				<h3><%=rs.getString("p_name")%></h3>
+				
+			</div>
+			
+			<div class="col-md-6">
+		<h3><%=rs.getString("p_name")%></h3>
 				<p><%=rs.getString("p_description")%>
-				<p><%=rs.getString("p_UnitPrice")%>원
-				<p><a href="./product.jsp?id=<%=rs.getString("p_id")%>"class="btn btn-secondary" role="button">상세 정보 &raquo;></a>
+				<p><b>상품 코드 : </b><span class="badge badge-danger"> <%=rs.getString("p_id")%></span>
+				<p><b>제조사</b> : <%=rs.getString("p_manufacturer")%>
+				<p><b>분류</b> : <%=rs.getString("p_category")%>
+				<p><b>재고 수</b> : <%=rs.getString("p_unitsInStock")%>
+				<h4><%=rs.getString("p_unitPrice")%>원</h4> 
+				
+				 <p><form name="addForm" action="./addCart.jsp?id=<%=rs.getString("p_id")%>" method="post">
+					<a href="#" class="btn btn-info" onclick="addToCart()"> 상품 주문 &raquo;</a>
+					<a href="./cart.jsp" class="btn btn-warning"> 장바구니 &raquo;</a> 
+					<a href="./products.jsp" class="btn btn-secondary"> 상품 목록 &raquo;</a>
+				</form> 
 			</div>
 			<%
 				}
+				
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
@@ -66,29 +80,6 @@
 				if (conn != null)
 					conn.close();
 			%>
-		
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-5">
-			
-			<!--   상세페이지 부분에 사진 출력은 나중에 과제로 제시 예정. 검사는 안함.  -->
-				<img src="c:/upload/<%=product.getFilename("p_fileName")%>" style="width: 100%" />>
-			</div>
-		 	<div class="col-md-6">
-				<% <h3><%=product.getPname("p_name")%></h3> 
-				<p><%=product.getDescription("p_description")%>
-				<p><b>상품 코드 : </b><span class="badge badge-danger"> <%=product.getProductId()%></span>
-				<p><b>제조사</b> : <%=product.getManufacturer("p_manufacturer")%>
-				<p><b>분류</b> : <%=product.getCategory("p_category")%>
-				<p><b>재고 수</b> : <%=product.getUnitsInStock("p_unitsInStock")%>
-				<h4><%=product.getUnitPrice("p_unitPrice")%>원</h4>
-				<p><form name="addForm" action="./addCart.jsp?id=<%=product.getProductId("p_id")%>" method="post">
-					<a href="#" class="btn btn-info" onclick="addToCart()"> 상품 주문 &raquo;</a>
-					<a href="./cart.jsp" class="btn btn-warning"> 장바구니 &raquo;</a> 
-					<a href="./products.jsp" class="btn btn-secondary"> 상품 목록 &raquo;</a>
-				</form>
-			</div>
 		</div>
 		<hr>
 	</div>
