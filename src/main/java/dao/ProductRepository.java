@@ -21,7 +21,7 @@ public class ProductRepository {
 		phone.setUnitsInStock(1000);
 		phone.setCondition("New");
 		phone.setFilename("P1234.png");
-
+		
 		Product notebook = new Product("P1235", "LG PC �׷�", 1500000);
 		notebook.setDescription("13.3-inch, IPS LED display, 5rd Generation Intel Core processors");
 		notebook.setCategory("Notebook");
@@ -38,29 +38,33 @@ public class ProductRepository {
 		tablet.setCondition("Old");
 		tablet.setFilename("P1236.png");
 		
+	
+		
 		// 상품등록 부분 연습하기. 이미지 등록 위치는 c/upload
 		// 상품의 예는 디비에 있는 내용을 기반으로 등록
-		Product tablet2 = new Product("P12345", "test", 1000);
-		tablet2.setDescription("설명");
-		tablet2.setCategory("test분류");
-		tablet2.setManufacturer("test제조사");
-		tablet2.setUnitsInStock(11);
-		tablet2.setCondition("New");
-		tablet2.setFilename("P1236.png");
+		Product test1 = new Product("P12346", "test1", 50000);
+		test1.setDescription("상품설명");
+		test1.setCategory("상품분류");
+		test1.setManufacturer("상품제조사");
+		test1.setUnitsInStock(100);
+		test1.setCondition("New");
+		test1.setFilename("P1236.png");
 		
-		Product newtablet = new Product("P12346", "test1", 50000);
-		newtablet.setDescription("상품설명");
-		newtablet.setCategory("상품분류");
-		newtablet.setManufacturer("상품제조사");
-		newtablet.setUnitsInStock(100);
-		newtablet.setCondition("New");
-		newtablet.setFilename("P1236.png");
+		Product test2 = new Product("P123888", "test2", 50000);
+		test2.setDescription("상품설명");
+		test2.setCategory("상품분류");
+		test2.setManufacturer("상품제조사");
+		test2.setUnitsInStock(100);
+		test2.setCondition("New");
+		test2.setFilename("썸네일2.jpg");
+		
 
 		listOfProducts.add(phone);
 		listOfProducts.add(notebook);
 		listOfProducts.add(tablet);
-		listOfProducts.add(tablet2);
-		listOfProducts.add(newtablet);
+		listOfProducts.add(test2);
+		listOfProducts.add(test1);
+		
 	}
 	
 	public ArrayList<Product> getAllProducts() {
