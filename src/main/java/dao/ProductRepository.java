@@ -47,13 +47,22 @@ public class ProductRepository {
 		tablet2.setUnitsInStock(11);
 		tablet2.setCondition("New");
 		tablet2.setFilename("P1236.png");
+		
+		Product newtablet = new Product("P12346", "test1", 50000);
+		newtablet.setDescription("상품설명");
+		newtablet.setCategory("상품분류");
+		newtablet.setManufacturer("상품제조사");
+		newtablet.setUnitsInStock(100);
+		newtablet.setCondition("New");
+		newtablet.setFilename("P1236.png");
 
 		listOfProducts.add(phone);
 		listOfProducts.add(notebook);
 		listOfProducts.add(tablet);
 		listOfProducts.add(tablet2);
+		listOfProducts.add(newtablet);
 	}
-
+	
 	public ArrayList<Product> getAllProducts() {
 		return listOfProducts;
 	}

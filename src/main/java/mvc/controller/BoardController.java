@@ -170,7 +170,7 @@ public class BoardController extends HttpServlet {
 		try {
 			multi = new MultipartRequest
 					(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
-			String productId = multi.getParameter("productId");
+			// String productId = multi.getParameter("productId");
 			
 			// dao 게시판에 관련된 crud 메서드들이 있다.
 			BoardDAO dao = BoardDAO.getInstance();		

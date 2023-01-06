@@ -27,11 +27,13 @@
 	</div>
 	<%
 		String id = request.getParameter("id"); //id는 상품의 아이디
+		//클래스에 등록된 샘플 상품을 사용하는 대신 디비 사용하기위해서. 주석. 
 	/*	ProductRepository dao = ProductRepository.getInstance();
 		Product product = dao.getProductById(id);  		*/
 	%>
 	
 	<%@ include file="dbconn.jsp" %> 
+	<div class="container">
 	<div class="row">
 	<!-- 화면이 변할수도 ㅇ -> 이 경우 파일 위치 변경 -->
 			<%
@@ -51,12 +53,11 @@
 				while (rs.next()) {
 			%>
 		<div class="col-md-5"> <!-- c:/upload/ 원래 이미지 경로 -->
-				<img src="./resources/images/<%=rs.getString("p_fileName")%>" style="width: 100%">
-				
-			</div>
+			<img src="./resources/images/<%=rs.getString("p_fileName")%>" style="width: 100%">
+		</div>
 			
 			<div class="col-md-6">
-		<h3><%=rs.getString("p_name")%></h3>
+			<h3><%=rs.getString("p_name")%></h3>
 				<p><%=rs.getString("p_description")%>
 				<p><b>상품 코드 : </b><span class="badge badge-danger"> <%=rs.getString("p_id")%></span>
 				<p><b>제조사</b> : <%=rs.getString("p_manufacturer")%>

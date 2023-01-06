@@ -30,7 +30,8 @@
 				<h3><%=rs.getString("p_name")%></h3>
 				<p><%=rs.getString("p_description")%>
 				<p><%=rs.getString("p_UnitPrice")%>원
-				<p><a href="./product.jsp?id=<%=rs.getString("p_id")%>"class="btn btn-secondary" role="button">상세 정보 &raquo;></a>
+				<p><a href="./product.jsp?id=<%=rs.getString("p_id")%>"
+				class="btn btn-secondary" role="button">상세 정보 &raquo;></a>
 			</div>
 			<%
 				}
