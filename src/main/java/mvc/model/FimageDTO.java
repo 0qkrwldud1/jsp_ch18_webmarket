@@ -4,7 +4,7 @@ public class FimageDTO {
 	private int fnum;
 	private String fileName;
 	private String redDate;
-	private int num;
+	private int num; //bd_num
 	
 	public int getFnum() {
 		return fnum;
